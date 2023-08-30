@@ -11,7 +11,7 @@ const PaginationButton: React.FC<PaginationButtonProps> = ({
     icon,
     onClick,
 }): React.JSX.Element => {
-    const roundedBorder = `rounded-${type === 'prev' ? 'l' : 'r'}-lg`;
+    const roundedBorder = type === 'prev' ? 'rounded-l-lg' : 'rounded-r-lg';
 
     return (
         <button
