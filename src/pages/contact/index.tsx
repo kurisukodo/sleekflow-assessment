@@ -74,8 +74,8 @@ const Contact = () => {
     };
 
     const renderCharacters = () =>
-        characters.map((character: any) => (
-            <tr className="border-b bg-gray-800 border-gray-700">
+        characters.map((character: any, index: number) => (
+            <tr key={'character-' + index} className="border-b bg-gray-800 border-gray-700">
                 <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap text-white">
                     {character.name}
                 </th>
@@ -87,7 +87,7 @@ const Contact = () => {
 
     const renderPages = () =>
         Array.from({ length: availablePages }, (_, i) => ++i).map((page) => (
-            <li>
+            <li key={'page-' + page}>
                 <button
                     onClick={() => handlePageChange(page)}
                     className={`flex items-center justify-center px-4 h-10 leading-tight cursor-pointer border border-gray-700 ${
