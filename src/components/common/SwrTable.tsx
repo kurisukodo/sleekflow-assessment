@@ -23,15 +23,18 @@ const SwrTable = <T extends unknown>({
     });
 
     const { data, error, isLoading } = useSWR<ApiResponse<T>>(
-        url + generateQueryString(apiOptions)
+        url + (pagination ? generateQueryString(apiOptions) : '')
     );
 
     useEffect(() => {
         if (data) {
-            setTableData(data.results);
-            setAvailablePages(Math.min(data.info.pages, MAX_NUM_OF_PAGES));
+            setTableData(Array.isArray(data.results) ? data.results : [data.results]);
+
+            if (pagination && data.info) {
+                setAvailablePages(Math.min(data.info.pages, MAX_NUM_OF_PAGES));
+            }
         }
-    }, [data, isLoading]);
+    }, [data]);
 
     useEffect(() => {
         if (error) {

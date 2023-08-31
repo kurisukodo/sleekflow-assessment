@@ -8,6 +8,16 @@ const axiosInstance = axios.create({
     },
 });
 
-const fetcher = (...args) => axiosInstance.get(...args).then((res) => res.data);
+const fetcher = (...args) =>
+    axiosInstance.get(...args).then((res) => {
+        if (res.data?.results) {
+            return res.data;
+        }
+
+        return {
+            info: undefined,
+            results: res.data,
+        };
+    });
 
 export default fetcher;

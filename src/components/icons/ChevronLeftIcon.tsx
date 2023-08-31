@@ -1,6 +1,6 @@
-const ChevronLeftIcon = () => (
+const ChevronLeftIcon = ({ className }: ChevronLeftIconProps) => (
     <svg
-        className="w-3 h-3"
+        className={`w-3 h-3 ${className || ''}`}
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         fill="none"

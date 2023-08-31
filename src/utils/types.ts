@@ -9,8 +9,8 @@ type ApiResponseInfo = {
 };
 
 type ApiResponse<T> = {
-    info: ApiResponseInfo;
-    results: T[];
+    info?: ApiResponseInfo;
+    results: T;
 };
 
 type CharacterLocation = {
@@ -26,6 +26,13 @@ type Character = {
     origin: CharacterLocation;
     location: CharacterLocation;
     image: string;
+    episode: string[];
+};
+
+type Episode = {
+    name: string;
+    air_date: string;
+    episode: string;
 };
 
 type TableRowProps<T> = {
@@ -33,7 +40,7 @@ type TableRowProps<T> = {
 };
 
 type SwrTableProps = {
-    url: string;
+    url?: string;
     tableHeaders: string[];
     RowComponent: React.ElementType;
     searchable?: boolean;
@@ -62,4 +69,13 @@ type PaginationButtonProps = {
     isDisabled: boolean;
     icon: React.JSX.Element;
     onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+};
+
+type ChevronLeftIconProps = {
+    className?: string;
+};
+
+type PersonalInfoItem = {
+    title: string;
+    value: string;
 };
