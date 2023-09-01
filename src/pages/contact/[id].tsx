@@ -19,7 +19,7 @@ const IndividualContact = () => {
     const [contact, setContact] = useState<Character>();
     const [episodeIds, setEpisodeIds] = useState<string>();
 
-    const { data, error, isLoading } = useSWR<ApiResponse<Character>>(
+    const { data, error } = useSWR<ApiResponse<Character>>(
         id ? `${API_ROUTES.CHARACTERS}/${id}` : null
     );
 
@@ -57,7 +57,7 @@ const IndividualContact = () => {
                 <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap text-white">
                     {value.name}
                 </th>
-                <td className="px-6 py-4">{value.air_date}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{value.air_date}</td>
                 <td className="px-6 py-4">{value.episode}</td>
             </tr>
         );
@@ -82,47 +82,51 @@ const IndividualContact = () => {
                 />
             </Head>
             <div className="p-8 bg-gray-800 border-b border-gray-700">
-                <button
-                    onClick={redirectBack}
-                    className="flex flex-row items-center gap-3 mb-5 text-white">
-                    <ChevronLeftIcon className="h-7" />{' '}
-                    <span className="font-extrabold leading-none tracking-tight text-white">
-                        Back
-                    </span>
-                </button>
-                <div className="flex flex-col items-center gap-8 md:flex-row">
-                    <Image
-                        src={contact?.image}
-                        alt="Contact image"
-                        width={150}
-                        height={150}
-                        className="rounded-full mb-5 md:mb-0"
-                        priority={true}
-                    />
-                    <h1 className="text-3xl font-extrabold leading-none tracking-tight text-white md:text-4xl">
-                        {contact?.name}
-                    </h1>
+                <div className="w-full lg:w-[1024px] mx-auto">
+                    <button
+                        onClick={redirectBack}
+                        className="flex flex-row items-center gap-3 mb-5 text-white">
+                        <ChevronLeftIcon className="h-7" />{' '}
+                        <span className="font-extrabold leading-none tracking-tight text-white">
+                            Back
+                        </span>
+                    </button>
+                    <div className="flex flex-col items-center gap-8 md:flex-row">
+                        <Image
+                            src={contact?.image}
+                            alt="Contact image"
+                            width={150}
+                            height={150}
+                            className="rounded-full md:mb-0"
+                            priority={true}
+                        />
+                        <h1 className="text-3xl font-extrabold leading-none tracking-tight text-white md:text-4xl">
+                            {contact?.name}
+                        </h1>
+                    </div>
                 </div>
             </div>
             <div className="p-8">
-                <h2 className="mb-4 font-extrabold leading-none tracking-tight text-white">
-                    Personal Info
-                </h2>
-                <div className="w-full p-6 border rounded-lg shadow bg-gray-800 border-gray-700 grid grid-cols-1 gap-5 md:grid-cols-3">
-                    <InfoItem title="Status" value={contact?.status} />
-                    <InfoItem title="Gender" value={contact?.gender} />
-                    <InfoItem title="Species" value={contact?.species} />
-                    <InfoItem title="Location" value={contact?.location.name} />
-                    <InfoItem title="Origin" value={contact?.origin.name} />
+                <div className="w-full mx-auto lg:px-0 lg:w-[1024px]">
+                    <h2 className="mb-4 font-extrabold leading-none tracking-tight text-white">
+                        Personal Info
+                    </h2>
+                    <div className="w-full p-6 border rounded-lg shadow bg-gray-800 border-gray-700 grid grid-cols-1 gap-5 md:grid-cols-3">
+                        <InfoItem title="Status" value={contact?.status} />
+                        <InfoItem title="Gender" value={contact?.gender} />
+                        <InfoItem title="Species" value={contact?.species} />
+                        <InfoItem title="Location" value={contact?.location.name} />
+                        <InfoItem title="Origin" value={contact?.origin.name} />
+                    </div>
+                    <h2 className="mb-4 mt-8 font-extrabold leading-none tracking-tight text-white">
+                        Episodes
+                    </h2>
+                    <SwrTable<Episode>
+                        url={episodeIds ? `${API_ROUTES.EPISODES}/${episodeIds}` : undefined}
+                        tableHeaders={TABLE_HEADERS}
+                        RowComponent={EpisodeRow}
+                    />
                 </div>
-                <h2 className="mb-4 mt-8 font-extrabold leading-none tracking-tight text-white">
-                    Episodes
-                </h2>
-                <SwrTable<Episode>
-                    url={episodeIds ? `${API_ROUTES.EPISODES}/${episodeIds}` : undefined}
-                    tableHeaders={TABLE_HEADERS}
-                    RowComponent={EpisodeRow}
-                />
             </div>
         </main>
     );

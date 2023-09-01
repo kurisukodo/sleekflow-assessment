@@ -28,7 +28,8 @@ const Contact = () => {
     };
 
     return (
-        <main className={`flex min-h-screen flex-col p-8 ${inter.className}`}>
+        <main
+            className={`flex min-h-screen flex-col p-8 max-w-[1024px] mx-auto ${inter.className}`}>
             <Head>
                 <title>Contact List - SleekFlow</title>
                 <meta
