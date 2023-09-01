@@ -15,7 +15,7 @@ const Contact = () => {
     const CharacterRow = ({ value }: TableRowProps<Character>) => {
         return (
             <tr
-                className="border-b bg-gray-800 border-gray-700"
+                className="border-b bg-gray-800 border-gray-700 cursor-pointer hover:bg-gray-700"
                 onClick={() => router.push('/contact/' + value.id)}>
                 <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap text-white">
                     {value.name}
